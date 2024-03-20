@@ -1,13 +1,15 @@
-public class Conta implements OperationsBank {
+public abstract class Conta {
     //This is a abstract class than will be used for other son-class
 
     private Client client;
     private int bankNumber;
-    private double actualBalance;
+    protected double actualBalance;
+
 
 
     public Conta(Client client, int bankNumber){
         this.client = client;
+        AgeValidator.isMoreEighteenOld(client.getAge());
         this.bankNumber = bankNumber;
         this.actualBalance = 0;
 
@@ -25,25 +27,19 @@ public class Conta implements OperationsBank {
         return actualBalance;
     }
 
-    @Override
     public double deposit(double value) {
-        if(value > 0){
-            return this.actualBalance += value;
-        }
-        return 0;
+        return value > 0 ? actualBalance+=value : 0;
     }
 
-    @Override
-    public double withdrawal(double value) {
-        if(!(actualBalance >= value)){
-            throw new BankOperationException("The actual balance value is small than value of withdrawal");
-        }
-        return actualBalance -= value;
-    }
+    public abstract void withdrawal(double value);
 
-    @Override
     public void transferCash(Conta destinatario, double value) {
-        withdrawal(value); // removing this quantity of the account will be transfer
-        destinatario.deposit(value); // transfering a value to destinatario
+        withdrawal(value);
+        destinatario.deposit(value);
+    }
+
+    @Override
+    public String toString() {
+        return "Client:"+getClient().getName() + ", BankNumber:"+getBankNumber() + ", Actual balance:$"+getActualBalance();
     }
 }
