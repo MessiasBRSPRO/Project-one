@@ -3,11 +3,10 @@ public class Client {
     private String name;
     private int age;
     private String myCpf;
-
-    public Client(String name, int age, String myCpf){
+    public Client(String name, int age, String cpf){
         this.name = name;
         this.age = age;
-        this.myCpf = myCpf;
+        this.myCpf = CPFValidator.validatorCPF(cpf);
     }
 
     public String getName() {

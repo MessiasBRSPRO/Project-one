@@ -1,6 +1,6 @@
-public class InvalidData extends RuntimeException {
+public class InvalidDataException extends RuntimeException {
 
-    public InvalidData(String m){
+    public InvalidDataException(String m){
         super(m);
     }
 }

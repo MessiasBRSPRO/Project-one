@@ -5,11 +5,12 @@ public class CPFValidator {
 
     private static String regexCPF ="\\b(?:\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2})\\b";
 
-    public static void validatorCPF(String cpf){
+    public static String validatorCPF(String cpf){
         Pattern regex = Pattern.compile(regexCPF); //the regex
         Matcher matcher = regex.matcher(cpf); // Where the regex will be applyed;
         if(!(matcher.find())){
-            throw new DadoInvalido("The cpf is invalid! verify and try again.");
+            throw new InvalidDataException("The cpf is invalid! verify and try again.");
         }
+        return cpf;
     }
 }
