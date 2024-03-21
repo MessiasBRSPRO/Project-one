@@ -9,6 +9,10 @@ public class Client {
         this.myCpf = CPFValidator.validatorCPF(cpf);
     }
 
+    public String getMyCpf() {
+        return myCpf;
+    }
+
     public String getName() {
         return name;
     }
