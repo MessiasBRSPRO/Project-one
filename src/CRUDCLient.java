@@ -2,6 +2,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CRUDCLient{
 
@@ -64,5 +66,47 @@ public class CRUDCLient{
 
     }
 
-    public void update(){}
+    public void update(Client person){
+        Scanner input = new Scanner(System.in);
+        System.out.println("You are in client's area. what atribute will be modify?");
+        System.out.println("""
+                [1]name
+                [2]age
+                """);
+        int inputOption = input.nextInt();
+        switch (inputOption){
+            case 1:
+                sqlCommand = "UPDATE clients SET name = ? WHERE cpf=?";
+                System.out.println("you will modify the atribute Name. Whats is the new value?");
+                String valueModify = input.next();
+                try {
+                    PreparedStatement modificator = connectionStarts.prepareStatement(sqlCommand);
+                    modificator.setString(1, valueModify);
+                    modificator.setString(2, person.getCpf());
+                    modificator.executeUpdate();
+                    System.out.println("Data(name) updated!");
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                input.close();
+                break;
+            case 2:
+                sqlCommand = "UPDATE clients SET age = ? WHERE cpf=?";
+                System.out.println("you will modify the atribute age. Whats is the new value?");
+                int newAge = input.nextInt();
+                try{
+                    PreparedStatement modificator = connectionStarts.prepareStatement(sqlCommand);
+                    modificator.setInt(1, newAge);
+                    modificator.setString(2, person.getCpf());
+                    modificator.executeUpdate();
+                    System.out.println("Data(Age) updated");
+                }catch (SQLException e){
+                    throw new RuntimeException(e);
+                }
+                input.close();
+                break;
+            default:
+                throw new RuntimeException("This attribute dont exists! try again");
+        }
+    }
 }

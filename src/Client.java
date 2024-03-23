@@ -2,15 +2,15 @@ public class Client {
     //This class represents an person in the bank
     private String name;
     private int age;
-    private String myCpf;
+    private String cpf;
     public Client(String name, int age, String cpf){
         this.name = name;
         this.age = age;
-        this.myCpf = CPFValidator.validatorCPF(cpf);
+        this.cpf = CPFValidator.validatorCPF(cpf);
     }
 
-    public String getMyCpf() {
-        return myCpf;
+    public String getCpf() {
+        return cpf;
     }
 
     public String getName() {
@@ -31,6 +31,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Name:"+getName() + ", Age:"+getAge() + ", CPF:"+this.myCpf;
+        return "Name:"+getName() + ", Age:"+getAge() + ", CPF:"+this.cpf;
     }
 }
