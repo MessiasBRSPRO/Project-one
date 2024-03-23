@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CRUDCLient{
@@ -7,6 +8,7 @@ public class CRUDCLient{
     private ConnectionWithDB connection;
     private Connection connectionStarts;
     private String sqlCommand;
+    private ResultSet query;
 
     public CRUDCLient(){
         this.connection = new ConnectionWithDB();
@@ -14,6 +16,7 @@ public class CRUDCLient{
     }
 
     public void insert(Client client){
+        //Thats is a method than will insert a item(Client) in Database
         sqlCommand = "INSERT INTO clients (name, age, cpf) VALUES(?, ?, ?)";
         try {
             PreparedStatement insertor = connectionStarts.prepareStatement(sqlCommand);
@@ -41,4 +44,25 @@ public class CRUDCLient{
             throw new RuntimeException(e);
         }
     }
+
+    public void select(){
+        sqlCommand = "SELECT * FROM clients";
+        try {
+            PreparedStatement querySelector = connectionStarts.prepareStatement(sqlCommand);
+            query = querySelector.executeQuery();
+            int totalRows = 0;
+            while(query.next()){
+                totalRows ++;
+                System.out.println("Name:"+query.getString(1) + ", Age:"+query.getInt(2) + ", CPF:"+query.getString(3));
+            }
+            System.out.println("Total rows:"+totalRows);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
+
+    public void update(){}
 }
