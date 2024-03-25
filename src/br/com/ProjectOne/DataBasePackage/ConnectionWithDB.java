@@ -1,3 +1,5 @@
+package br.com.ProjectOne.DataBasePackage;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,7 +19,7 @@ public class ConnectionWithDB {
         try {
             urlDB = "jdbc:" + databaseName + "://localhost:"+port+ "/" + tableName;
             System.out.println("Username");
-            user = input.nextLine();
+            user = input.next();
             System.out.println("Password");
             pass = input.next().trim();
             connection = DriverManager.getConnection(urlDB, user, pass);

@@ -1,3 +1,7 @@
+package br.com.ProjectOne.AccountsType;
+
+import br.com.ProjectOne.Validators.CPFValidator;
+
 public class Client {
     //This class represents an person in the bank
     private String name;

@@ -1,9 +1,14 @@
+package br.com.ProjectOne.AccountsType;
+
+import br.com.ProjectOne.Validators.AgeValidator;
+
 public abstract class Conta {
     //This is a abstract class than will be used for other son-class
 
     private Client client;
     private int bankNumber;
     protected double actualBalance;
+    private String accountType;
 
 
 
@@ -13,6 +18,14 @@ public abstract class Conta {
         this.bankNumber = bankNumber;
         this.actualBalance = 0;
 
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 
     public Client getClient() {
@@ -40,6 +53,6 @@ public abstract class Conta {
 
     @Override
     public String toString() {
-        return "Client:"+getClient().getName() + ", BankNumber:"+getBankNumber() + ", Actual balance:$"+getActualBalance();
+        return "br.com.ProjectOne.AccountsType.Client:"+getClient().getName() + ", BankNumber:"+getBankNumber() + ", Actual balance:$"+getActualBalance();
     }
 }

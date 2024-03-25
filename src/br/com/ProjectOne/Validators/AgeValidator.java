@@ -1,3 +1,7 @@
+package br.com.ProjectOne.Validators;
+
+import br.com.ProjectOne.Exceptions.FailedAccountCreateException;
+
 public class AgeValidator {
 
     public static int isMoreEighteenOld(int age){

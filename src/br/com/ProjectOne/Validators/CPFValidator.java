@@ -1,3 +1,7 @@
+package br.com.ProjectOne.Validators;
+
+import br.com.ProjectOne.Exceptions.InvalidDataException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -1,8 +1,11 @@
+package br.com.ProjectOne.DataBasePackage;
+
+import br.com.ProjectOne.AccountsType.Client;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CRUDCLient{
@@ -18,7 +21,7 @@ public class CRUDCLient{
     }
 
     public void insert(Client client){
-        //Thats is a method than will insert a item(Client) in Database
+        //Thats is a method than will insert a item(br.com.ProjectOne.AccountsType.Client) in Database
         sqlCommand = "INSERT INTO clients (name, age, cpf) VALUES(?, ?, ?)";
         try {
             PreparedStatement insertor = connectionStarts.prepareStatement(sqlCommand);
@@ -55,7 +58,7 @@ public class CRUDCLient{
             int totalRows = 0;
             while(query.next()){
                 totalRows ++;
-                System.out.println("Name:"+query.getString(1) + ", Age:"+query.getInt(2) + ", CPF:"+query.getString(3));
+                System.out.println("Name:"+query.getString(1) + " |Age:"+query.getInt(2) + " |CPF:"+query.getString(3));
             }
             System.out.println("Total rows:"+totalRows);
         } catch (SQLException e) {

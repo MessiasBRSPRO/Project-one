@@ -1,8 +1,11 @@
+package br.com.ProjectOne.AccountsType;
+
 public class ContaBancaria extends Conta{
 
     private static double tax = 0.05;
     public ContaBancaria(Client client, int bankNumber) {
         super(client, bankNumber);
+        setAccountType("BANCARIA");
     }
 
     @Override
