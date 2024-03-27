@@ -28,14 +28,15 @@ public class CRUDConta {
             insertor.setString(4, conta.getClient().getCpf());
             insertor.setString(5, conta.getAccountType());
             insertor.execute();
+            update(conta);
+
             System.out.println("A account has been registered in Application's DataBase");
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
     }
 
-    public void closeAccount(Conta conta){ //o mais foda aqui, é que quando apagamos uma conta bancaria, ela vai pra um
-        // outro banco de dados que ficarão todas as contas fechadas
+    public void closeAccount(Conta conta){
         sqlCommand = "DELETE FROM contasBancarias WHERE name=? AND agency=? AND actualbalance=? AND cpf=? AND typeaccount=?";
         String turningOffAccount = "INSERT INTO closeAccounts (name, agency, actualbalance, cpf, typeaccount) VALUES(?, ?, ?, ?, ?)";
         try{
