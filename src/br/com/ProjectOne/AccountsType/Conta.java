@@ -53,6 +53,6 @@ public abstract class Conta {
 
     @Override
     public String toString() {
-        return "br.com.ProjectOne.AccountsType.Client:"+getClient().getName() + ", BankNumber:"+getBankNumber() + ", Actual balance:$"+getActualBalance();
+        return "Client:"+getClient().getName() + ", BankNumber:"+getBankNumber() + ", Actual balance:$"+getActualBalance();
     }
 }

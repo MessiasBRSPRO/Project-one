@@ -18,13 +18,17 @@ public class ConnectionWithDB {
     public Connection startsConnectionWithDb(String databaseName, int port, String tableName){
         try {
             urlDB = "jdbc:" + databaseName + "://localhost:"+port+ "/" + tableName;
-            System.out.println("Username");
-            user = input.next();
-            System.out.println("Password");
-            pass = input.next().trim();
+
+            // this is a code part than create a login access to database
+            //System.out.println("Username");
+            //user = input.next();
+            //System.out.println("Password");
+            //pass = input.next().trim();
+
+            user = "postgres";
+            pass = "Afton3444";
             connection = DriverManager.getConnection(urlDB, user, pass);
             if(connection != null){
-                System.out.println("Connection with " + databaseName + "DB established");
                 return connection;
             }
         } catch (SQLException e) {

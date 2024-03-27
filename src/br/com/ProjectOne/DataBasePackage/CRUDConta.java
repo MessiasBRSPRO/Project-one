@@ -34,7 +34,8 @@ public class CRUDConta {
         }
     }
 
-    public void closeAccount(Conta conta){
+    public void closeAccount(Conta conta){ //o mais foda aqui, é que quando apagamos uma conta bancaria, ela vai pra um
+        // outro banco de dados que ficarão todas as contas fechadas
         sqlCommand = "DELETE FROM contasBancarias WHERE name=? AND agency=? AND actualbalance=? AND cpf=? AND typeaccount=?";
         String turningOffAccount = "INSERT INTO closeAccounts (name, agency, actualbalance, cpf, typeaccount) VALUES(?, ?, ?, ?, ?)";
         try{
@@ -75,6 +76,19 @@ public class CRUDConta {
                         " |CPF:"+resultSet.getString(4) + " |Type Account:"+resultSet.getString(5));
             }
             System.out.println("Total Rows:"+totalRows);
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void update(Conta conta){
+        sqlCommand = "UPDATE contasBancarias SET actualbalance= ? WHERE cpf=?";
+
+        try{
+            PreparedStatement update = connectionStarter.prepareStatement(sqlCommand);
+            update.setDouble(1, conta.getActualBalance());
+            update.setString(2, conta.getClient().getCpf());
+            update.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
