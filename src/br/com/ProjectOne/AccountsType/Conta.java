@@ -1,5 +1,6 @@
 package br.com.ProjectOne.AccountsType;
 
+import br.com.ProjectOne.DataBasePackage.CRUDConta;
 import br.com.ProjectOne.Validators.AgeValidator;
 
 public abstract class Conta {
@@ -9,8 +10,6 @@ public abstract class Conta {
     private int bankNumber;
     protected double actualBalance;
     private String accountType;
-
-
 
     public Conta(Client client, int bankNumber){
         this.client = client;
@@ -41,6 +40,8 @@ public abstract class Conta {
     }
 
     public double deposit(double value) {
+        CRUDConta crudConta = new CRUDConta();
+        crudConta.update(this);
         return value > 0 ? actualBalance+=value : 0;
     }
 

@@ -81,7 +81,7 @@ public class CRUDConta {
         }
     }
 
-    private void update(Conta conta){
+    public void update(Conta conta){
         sqlCommand = "UPDATE contasBancarias SET actualbalance= ? WHERE cpf=?";
 
         try{

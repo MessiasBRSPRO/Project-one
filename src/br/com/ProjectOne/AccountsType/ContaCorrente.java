@@ -1,5 +1,7 @@
 package br.com.ProjectOne.AccountsType;
 
+import br.com.ProjectOne.DataBasePackage.CRUDConta;
+
 public class ContaCorrente extends Conta{
 
 
@@ -10,6 +12,8 @@ public class ContaCorrente extends Conta{
     }
     @Override
     public void withdrawal(double value) {
+        CRUDConta crudConta = new CRUDConta();
+        crudConta.update(this);
         double applyTaxes = value + (value * tax);
         actualBalance -= applyTaxes;
         if(actualBalance < 0 ){
