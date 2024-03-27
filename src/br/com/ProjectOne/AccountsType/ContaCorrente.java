@@ -13,11 +13,12 @@ public class ContaCorrente extends Conta{
     @Override
     public void withdrawal(double value) {
         CRUDConta crudConta = new CRUDConta();
-        crudConta.update(this);
         double applyTaxes = value + (value * tax);
         actualBalance -= applyTaxes;
         if(actualBalance < 0 ){
             System.out.println("Your balance have a debit of $"+actualBalance);
         }
+        crudConta.update(this);
+
     }
 }

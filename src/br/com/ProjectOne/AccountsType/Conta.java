@@ -40,9 +40,10 @@ public abstract class Conta {
     }
 
     public double deposit(double value) {
+        double newValue  = value > 0 ? actualBalance+=value : 0;
         CRUDConta crudConta = new CRUDConta();
         crudConta.update(this);
-        return value > 0 ? actualBalance+=value : 0;
+        return newValue;
     }
 
     public abstract void withdrawal(double value);
@@ -50,6 +51,8 @@ public abstract class Conta {
     public void transferCash(Conta destinatario, double value) {
         withdrawal(value);
         destinatario.deposit(value);
+        CRUDConta crudConta = new CRUDConta();
+        crudConta.update(this);
     }
 
     @Override
