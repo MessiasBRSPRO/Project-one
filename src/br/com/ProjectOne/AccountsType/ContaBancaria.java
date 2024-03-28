@@ -18,6 +18,7 @@ public class ContaBancaria extends Conta{
         if(actualBalance < 0){
             System.out.println("You have a debit of $"+actualBalance);
         }
+        operationsExtract.add("WithDrawal $"+value + "+ tax:$"+(value * tax));
         crudConta.update(this);
     }
 

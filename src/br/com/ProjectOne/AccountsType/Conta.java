@@ -3,6 +3,10 @@ package br.com.ProjectOne.AccountsType;
 import br.com.ProjectOne.DataBasePackage.CRUDConta;
 import br.com.ProjectOne.Validators.AgeValidator;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public abstract class Conta {
     //This is a abstract class than will be used for other son-class
 
@@ -10,12 +14,14 @@ public abstract class Conta {
     private int bankNumber;
     protected double actualBalance;
     private String accountType;
+    protected List<String> operationsExtract;
 
     public Conta(Client client, int bankNumber){
         this.client = client;
         AgeValidator.isMoreEighteenOld(client.getAge());
         this.bankNumber = bankNumber;
         this.actualBalance = 0;
+        this.operationsExtract = new ArrayList<>();
 
     }
 
@@ -39,10 +45,15 @@ public abstract class Conta {
         return actualBalance;
     }
 
+    public List<String> getOperationsExtract() {
+        return Collections.unmodifiableList(operationsExtract);
+    }
+
     public double deposit(double value) {
         double newValue  = value > 0 ? actualBalance+=value : 0;
         CRUDConta crudConta = new CRUDConta();
         crudConta.update(this);
+        operationsExtract.add("Deposit $"+ value);
         return newValue;
     }
 
@@ -53,6 +64,7 @@ public abstract class Conta {
         destinatario.deposit(value);
         CRUDConta crudConta = new CRUDConta();
         crudConta.update(this);
+        operationsExtract.add("Transference to " + destinatario.getClient().getName() + " Value $"+value);
     }
 
     @Override
