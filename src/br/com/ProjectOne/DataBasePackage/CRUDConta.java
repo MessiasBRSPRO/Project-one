@@ -28,8 +28,6 @@ public class CRUDConta {
             insertor.setString(4, conta.getClient().getCpf());
             insertor.setString(5, conta.getAccountType());
             insertor.execute();
-            update(conta);
-
             System.out.println("A account has been registered in Application's DataBase");
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -83,12 +81,11 @@ public class CRUDConta {
     }
 
     public void update(Conta conta){
-        sqlCommand = "UPDATE contasBancarias SET actualbalance= ? WHERE cpf=?";
-
+        sqlCommand = "UPDATE contasBancarias SET actualbalance= ? WHERE agency=?";
         try{
             PreparedStatement update = connectionStarter.prepareStatement(sqlCommand);
             update.setDouble(1, conta.getActualBalance());
-            update.setString(2, conta.getClient().getCpf());
+            update.setInt(2, conta.getBankNumber());
             update.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);
