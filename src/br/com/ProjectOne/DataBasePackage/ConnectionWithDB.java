@@ -15,6 +15,11 @@ public class ConnectionWithDB {
     private String user;
     private String pass;
     //jdbc:postgresql://localhost:5432/pessoas"
+
+    //In this application we will be use the PostgreSQL, but you can utilize other dataBase like
+    // a MariaDB, mySql
+
+    //In sum, we will use a API JDBC than go intermediate our communication with DataBase
     public Connection startsConnectionWithDb(String databaseName, int port, String tableName){
         try {
             urlDB = "jdbc:" + databaseName + "://localhost:"+port+ "/" + tableName;

@@ -18,10 +18,10 @@ public abstract class Conta {
 
     public Conta(Client client, int bankNumber){
         this.client = client;
-        AgeValidator.isMoreEighteenOld(client.getAge());
+        AgeValidator.isMoreEighteenOld(client.getAge());//Only > of eighteen years old can open a account
         this.bankNumber = bankNumber;
-        this.actualBalance = 0;
-        this.operationsExtract = new ArrayList<>();
+        this.actualBalance = 0;//All created accounts stars with actual balance $0
+        this.operationsExtract = new ArrayList<>(); //Collection with contains all operations of each client
 
     }
 
@@ -47,23 +47,27 @@ public abstract class Conta {
 
     public List<String> getOperationsExtract() {
         return Collections.unmodifiableList(operationsExtract);
+        // empowering the restriction of information
     }
 
     public double deposit(double value) {
+        //This is a method than will add a value in balance (this is global method)
         double newValue  = value > 0 ? actualBalance+=value : 0;
         CRUDConta crudConta = new CRUDConta();
         crudConta.update(this);
-        operationsExtract.add("Deposit $"+ value);
+        operationsExtract.add("Deposit $"+ value);//Adding the opration in Data's structure
         return newValue;
     }
 
     public abstract void withdrawal(double value);
+    //The method withdrawal is abstract because your structure will be modify cus different taxes will be applied
 
     public void transferCash(Conta destinatario, double value) {
+        //Method global will be realize transference of account to other;
         withdrawal(value);
         destinatario.deposit(value);
         CRUDConta crudConta = new CRUDConta();
-        crudConta.update(this);
+        crudConta.update(this);//Method will be update the actualBalance in Database(contasBancarias)
         operationsExtract.add("Transference to " + destinatario.getClient().getName() + " Value $"+value);
     }
 

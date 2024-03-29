@@ -10,7 +10,7 @@ public class Client {
     public Client(String name, int age, String cpf){
         this.name = name;
         this.age = age;
-        this.cpf = CPFValidator.validatorCPF(cpf);
+        this.cpf = CPFValidator.validatorCPF(cpf);//Validating the inserted cpf
     }
 
     public String getCpf() {

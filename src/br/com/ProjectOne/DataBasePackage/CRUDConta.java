@@ -21,13 +21,13 @@ public class CRUDConta {
     public void register(Conta conta){
         sqlCommand = "INSERT INTO contasBancarias (name, agency, actualbalance, cpf, typeaccount) VALUES(?, ?, ?, ?, ?)";
         try{
-            PreparedStatement insertor = connectionStarter.prepareStatement(sqlCommand);
-            insertor.setString(1, conta.getClient().getName());
+            PreparedStatement insertor = connectionStarter.prepareStatement(sqlCommand);//This is a interface responsible of realize operations in DB;
+            insertor.setString(1, conta.getClient().getName());//Attributing the respective values in created rows in tables
             insertor.setInt(2, conta.getBankNumber());
             insertor.setDouble(3, conta.getActualBalance());
             insertor.setString(4, conta.getClient().getCpf());
             insertor.setString(5, conta.getAccountType());
-            insertor.execute();
+            insertor.execute();//executing the operation in DB
             System.out.println("A account has been registered in Application's DataBase");
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -35,6 +35,8 @@ public class CRUDConta {
     }
 
     public void closeAccount(Conta conta){
+        /*this method is responsible of close a account of contasBancarias db
+        * and add in a db than will be save in closeAccount db   */
         sqlCommand = "DELETE FROM contasBancarias WHERE name=? AND agency=? AND actualbalance=? AND cpf=? AND typeaccount=?";
         String turningOffAccount = "INSERT INTO closeAccounts (name, agency, actualbalance, cpf, typeaccount) VALUES(?, ?, ?, ?, ?)";
         try{
@@ -63,7 +65,8 @@ public class CRUDConta {
     }
 
     public void select(){
-        sqlCommand = "SELECT * FROM contasBancarias";
+        sqlCommand = "SELECT * FROM contasBancarias";//THE jdbc's API utilize SQL code to communicate
+        // with the dataBase
 
         try{
             PreparedStatement selectorAll = connectionStarter.prepareStatement(sqlCommand);
@@ -81,6 +84,9 @@ public class CRUDConta {
     }
 
     public void update(Conta conta){
+        /*this method will do the updates in databse if datas in app will be modified
+        *
+        * */
         sqlCommand = "UPDATE contasBancarias SET actualbalance= ? WHERE agency=?";
         try{
             PreparedStatement update = connectionStarter.prepareStatement(sqlCommand);
