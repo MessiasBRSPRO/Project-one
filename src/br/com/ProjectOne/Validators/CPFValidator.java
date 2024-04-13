@@ -13,8 +13,13 @@ public class CPFValidator {
     public static String validatorCPF(String cpf){
         Pattern regex = Pattern.compile(regexCPF); //the regex
         Matcher matcher = regex.matcher(cpf); // Where the regex will be applyed;
-        if(!(matcher.find())){
-            throw new InvalidDataException("The cpf is invalid! verify and try again.");
+        boolean isValid = matcher.find();
+        try{
+            if(!(isValid)){
+                throw new InvalidDataException("Your cpf is invalid, please insert a valid data!");
+            }
+        }catch (InvalidDataException e){
+            System.out.println("An Exception has occurred:"+e.getMessage());
         }
         return cpf;
     }
