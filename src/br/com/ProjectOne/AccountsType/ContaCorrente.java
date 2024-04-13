@@ -1,6 +1,7 @@
 package br.com.ProjectOne.AccountsType;
 
 import br.com.ProjectOne.DataBasePackage.CRUDConta;
+import br.com.ProjectOne.Exceptions.NegativeBalanceException;
 
 public class ContaCorrente extends Conta{
     //this class is a son of Conta
@@ -15,11 +16,16 @@ public class ContaCorrente extends Conta{
         CRUDConta crudConta = new CRUDConta();
         double applyTaxes = value + (value * tax);
         actualBalance -= applyTaxes;
-        if(actualBalance < 0 ){
-            System.out.println("Your balance have a debit of $"+actualBalance);
+        boolean balanceValidation = actualBalance < 0;
+        try{
+            if(balanceValidation){
+                throw new NegativeBalanceException("Your balance have a debit of $"+actualBalance);
+            }
+            operationsExtract.add("WithDrawal $"+value + "+ tax:$"+(value * tax));
+            crudConta.update(this);
+        }catch (NegativeBalanceException e){
+            System.out.println("An exception has occurred:"+e.getMessage());
         }
-        operationsExtract.add("WithDrawal $"+value + "+ tax:$"+(value * tax));
-        crudConta.update(this);
 
     }
 }

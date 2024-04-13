@@ -1,6 +1,7 @@
 package br.com.ProjectOne.AccountsType;
 
 import br.com.ProjectOne.DataBasePackage.CRUDConta;
+import br.com.ProjectOne.Exceptions.ZeroDepositException;
 import br.com.ProjectOne.Validators.AgeValidator;
 
 import java.util.ArrayList;
@@ -53,6 +54,13 @@ public abstract class Conta {
     public double deposit(double value) {
         //This is a method than will add a value in balance (this is global method)
         double newValue  = value > 0 ? actualBalance+=value : 0;
+        try{
+            if(value <= 0){
+                throw new ZeroDepositException("Deposit will be realized only if is bigger than 0");
+            }
+        }catch (ZeroDepositException e){
+            System.out.println("An exception has occurred:"+e.getMessage());
+        }
         CRUDConta crudConta = new CRUDConta();
         crudConta.update(this);
         operationsExtract.add("Deposit $"+ value);//Adding the opration in Data's structure
