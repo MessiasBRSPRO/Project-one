@@ -1,6 +1,7 @@
 package br.com.ProjectOne.AccountsType;
 
 import br.com.ProjectOne.DataBasePackage.CRUDConta;
+import br.com.ProjectOne.Exceptions.NegativeBalanceException;
 import br.com.ProjectOne.Exceptions.ZeroDepositException;
 import br.com.ProjectOne.Validators.AgeValidator;
 
@@ -67,8 +68,20 @@ public abstract class Conta {
         return newValue;
     }
 
-    public abstract void withdrawal(double value);
-    //The method withdrawal is abstract because your structure will be modify cus different taxes will be applied
+    public void withdrawal(double value){
+        CRUDConta crudConta = new CRUDConta();
+        this.actualBalance -= value;
+        boolean inDebit = actualBalance < 0;
+        crudConta.update(this);
+        operationsExtract.add("Withdraw $"+value);
+        try{
+            if(inDebit){
+                throw new NegativeBalanceException("You have an debit of $"+actualBalance + " in your account.");
+            }
+        }catch (NegativeBalanceException e){
+            System.out.println("an exception has occurred:"+e.getMessage());
+        }
+    }
 
     public void transferCash(Conta destinatario, double value) {
         //Method global will be realize transference of account to other;
