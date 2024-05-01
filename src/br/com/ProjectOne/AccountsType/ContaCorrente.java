@@ -13,6 +13,13 @@ public class ContaCorrente extends Conta{
     }
     @Override
     public void withdrawal(double value) {
+        double valueTaxed = value + (value * tax);
+        super.withdrawal(valueTaxed);
+
+    }
+
+    /* Only to possible CTRL+Z
+     public void withdrawal(double value) {
         CRUDConta crudConta = new CRUDConta();
         double applyTaxes = value + (value * tax);
         actualBalance -= applyTaxes;
@@ -28,4 +35,7 @@ public class ContaCorrente extends Conta{
         }
 
     }
+    * */
 }
+
+
